@@ -13,6 +13,16 @@ import { GoHomeFill } from "react-icons/go";
 import { IoMail } from "react-icons/io5";
 import { IoBookmarks } from "react-icons/io5";
 import { HiUser } from "react-icons/hi2";
+import { SlLogout } from "react-icons/sl";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+
+
 
 const sideLinks = [
   {
@@ -74,11 +84,25 @@ export default function LeftSidebar() {
         </div>
         <div className='flex flex-col gap-10'>
           {sideLinks.map((link) => (
-            <Link href={link.route} onClick={() => handleLinkClick(link.label)} key={link.id} className={`${activeLink === link.label ? 'bg-gray-500/10' : ''} flex items-center gap-3 px-10 py-4 rounded-lg hover:bg-gray-500/10 cursor-pointer`}>
+            <Link href={link.route} onClick={() => handleLinkClick(link.label)} key={link.id} className={`${activeLink === link.label ? 'bg-slate-400/30' : ''} flex items-center gap-3 px-10 py-4 rounded-lg hover:bg-gray-500/10 cursor-pointer`}>
               <div className='text-purple-800'>{activeLink === link.label ? link.iconActive : link.icon}</div>
               <span className='text-purple-800 text-start font-bold text-xl'>{link.label}</span>
             </Link>
           ))}
+        </div>
+        <div className='flex items-center gap-4 mt-[400px]'>
+          <span>Avatar</span>
+          <span>Username</span>
+          <TooltipProvider>
+              <Tooltip>
+                  <TooltipTrigger>
+                      <Link href={'.././login'}><SlLogout size={24} className='text-purple-900 cursor-pointer'/></Link>
+                  </TooltipTrigger>
+                  <TooltipContent className='bg-slate-800 text-white'>
+                      <p>Log out</p>
+                  </TooltipContent>
+              </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </div>
