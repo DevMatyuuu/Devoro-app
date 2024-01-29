@@ -7,7 +7,7 @@ import logo from '@/public/Devoro-logo-mobile.png'
 import { useFormik, FormikProps } from 'formik'
 import Link from 'next/link'
 import { LoginSchema } from '../validations/Validation'
-import { IoIosWarning } from "react-icons/io";
+import { RiErrorWarningFill } from "react-icons/ri";
 import googleLogo from '@/assets/google-logo.png'
 import {
   Tooltip,
@@ -53,7 +53,7 @@ export default function Login() {
                               <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-                                        <IoIosWarning size={24} className='text-red-800 cursor-help'/>
+                                        <RiErrorWarningFill size={24} className='text-red-800 cursor-help'/>
                                     </TooltipTrigger>
                                     <TooltipContent className='bg-slate-800 text-white'>
                                         <p>{errors.email}</p>
@@ -72,7 +72,7 @@ export default function Login() {
                               <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger>
-                                        <IoIosWarning size={24} className='text-red-800 cursor-help'/>
+                                        <RiErrorWarningFill size={24} className='text-red-800 cursor-help'/>
                                     </TooltipTrigger>
                                     <TooltipContent className='bg-slate-800 text-white'>
                                         <p>{errors.password}</p>
@@ -96,7 +96,7 @@ export default function Login() {
                         </div>
                         <div>
                           <div className='flex flex-col gap-1 items-center'>
-                            <Image src={googleLogo} alt='google-logo' className='size-7 rounded-xl cursor-pointer'/>
+                            <Link href='/api/auth/signin'><Image src={googleLogo} alt='google-logo' className='size-7 rounded-xl cursor-pointer'/></Link>
                             <span className='text-xs'>Google</span>
                           </div>
                         </div>
