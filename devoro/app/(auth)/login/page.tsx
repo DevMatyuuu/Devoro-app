@@ -96,7 +96,7 @@ export default function Login() {
                         </div>
                         <div>
                           <div className='flex flex-col gap-1 items-center'>
-                            <Link href='/api/auth/signin'><Image src={googleLogo} alt='google-logo' className='size-7 rounded-xl cursor-pointer'/></Link>
+                            <Image src={googleLogo} alt='google-logo' className='size-7 rounded-xl cursor-pointer'/>
                             <span className='text-xs'>Google</span>
                           </div>
                         </div>
