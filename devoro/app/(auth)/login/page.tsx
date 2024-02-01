@@ -16,7 +16,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { signIn, useSession } from 'next-auth/react'
-import { redirect } from 'next/navigation'
+import {  useRouter } from 'next/navigation'
 
 
 
@@ -45,10 +45,12 @@ export default function Login() {
     signIn("github")
   }
 
+  const router = useRouter();
+
   const {data: session} = useSession();
 
   if(session) {
-    return redirect('/')
+    return router.push('/')
   }
     return (
         <div>
