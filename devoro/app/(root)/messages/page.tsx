@@ -10,7 +10,7 @@ export default function Messages() {
   return (
     <div>
       <div className='flex justify-center items-center w-[95%] mx-auto mt-24'>
-        messages
+        Coming soon
       </div>
     </div>
   )

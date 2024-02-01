@@ -13,16 +13,15 @@ import { GoHomeFill } from "react-icons/go";
 import { IoMail } from "react-icons/io5";
 import { IoBookmarks } from "react-icons/io5";
 import { HiUser } from "react-icons/hi2";
-import { SlLogout } from "react-icons/sl";
+import { TbLogout2 } from "react-icons/tb";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-
-
-
+import useModalStore from '@/store/modalStore'
+import { useSession } from 'next-auth/react'
 
 const sideLinks = [
   {
@@ -56,6 +55,7 @@ const sideLinks = [
 ]
 
 export default function LeftSidebar() {
+  const setOpen = useModalStore((state) => state.setOpen);
 
   const storedActive = JSON.parse(localStorage.getItem('active') as string);
 
@@ -72,39 +72,41 @@ export default function LeftSidebar() {
   if (activeLink === null) {
     setActiveLink('Home')
   } 
+  
+  const {data: session} = useSession();
 
-
-
-  return (
-    <div>
-      <div className='bg-gray-1 -ml-[270px] flex fixed flex-col items-center gap-3 w-[100px] xl:w-[270px] lg:w-[200px] md:w-[145px] sm:w-[200px] h-screen border-r border-slate-500/20'>
-        <div className='flex justify-center py-4 w-full'>
-          <Image src={logoMobile} alt='devoro-logo' className='md:hidden h-20 lg:w-32 lg:h-24 sm:h-20 sm:w-28' />
-          <Image src={logo} alt='devoro-logo' className='hidden lg:block h-20  lg:w-40 lg:h-14 sm:h-20 sm:w-28' />
-        </div>
-        <div className='flex flex-col gap-10'>
-          {sideLinks.map((link) => (
-            <Link href={link.route} onClick={() => handleLinkClick(link.label)} key={link.id} className={`${activeLink === link.label ? 'bg-slate-400/30' : ''} flex items-center gap-3 px-10 py-4 rounded-lg hover:bg-gray-500/10 cursor-pointer`}>
-              <div className='text-purple-800'>{activeLink === link.label ? link.iconActive : link.icon}</div>
-              <span className='text-purple-800 text-start font-bold text-xl'>{link.label}</span>
-            </Link>
-          ))}
-        </div>
-        <div className='flex items-center gap-4 mt-[400px]'>
-          <span>Avatar</span>
-          <span>Username</span>
-          <TooltipProvider>
-              <Tooltip>
-                  <TooltipTrigger>
-                      <Link href={'.././login'}><SlLogout size={24} className='text-purple-900 cursor-pointer'/></Link>
-                  </TooltipTrigger>
-                  <TooltipContent className='bg-slate-800 text-white'>
-                      <p>Log out</p>
-                  </TooltipContent>
-              </Tooltip>
-          </TooltipProvider>
+  if(session) {
+    return (
+      <div>
+        <div className='bg-gray-1 -ml-[270px] flex fixed flex-col items-center gap-3 w-[100px] xl:w-[270px] lg:w-[200px] md:w-[145px] sm:w-[200px] h-screen border-r border-slate-500/20'>
+          <div className='flex justify-center py-4 w-full'>
+            <Image src={logoMobile} alt='devoro-logo' className='md:hidden h-20 lg:w-32 lg:h-24 sm:h-20 sm:w-28' />
+            <Image src={logo} alt='devoro-logo' className='hidden lg:block h-20  lg:w-40 lg:h-14 sm:h-20 sm:w-28' />
+          </div>
+          <div className='flex flex-col gap-10'>
+            {sideLinks.map((link) => (
+              <Link href={link.route} onClick={() => handleLinkClick(link.label)} key={link.id} className={`${activeLink === link.label ? 'bg-slate-400/30' : 'hover:bg-gray-500/10'} flex items-center gap-3 px-10 py-4 rounded-lg cursor-pointer`}>
+                <div className='text-purple-800'>{activeLink === link.label ? link.iconActive : link.icon}</div>
+                <span className='text-purple-800 text-start font-bold text-xl'>{link.label}</span>
+              </Link>
+            ))}
+          </div>
+          <div className='flex items-center gap-4 mt-[380px] w-[100%]'>
+            <div className='flex flex-col items-center'>
+            </div>
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger>
+                        <TbLogout2 size={28} className='text-purple-900 cursor-pointer' onClick={setOpen}/>
+                    </TooltipTrigger>
+                    <TooltipContent className='bg-slate-800 text-white'>
+                        <p>Log out</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }

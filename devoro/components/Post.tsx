@@ -16,12 +16,14 @@ import {
 import usePostStore from '@/store/postStore';
 import Lottie from 'lottie-react'
 import loader from '@/assets/loading.json'
+import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 
-  
 
 export default function Post() {
   const { input, setInput, media, setMedia, emoji, setEmoji, sendPost, loading} = usePostStore();
+
 
   const filePickerRef = useRef<any>();
 
@@ -53,7 +55,7 @@ export default function Post() {
     <div className='w-full'>
         <div className='flex flex-col gap-3 justify-center h-auto mt-24 border border-black/10 rounded-xl'>
             <div className='flex flex-col px-7 '>
-             <textarea rows={Number('2')} cols={Number('70')} value={input} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)} className='mt-5 h-36 w-full resize-none rounded-xl bg-transparent py-3 focus: outline-none' contentEditable placeholder='Share your thoughts...'></textarea>
+             <textarea rows={Number('2')} cols={Number('70')} value={input} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)} className='mt-5 h-20 w-full resize-none rounded-xl bg-transparent py-3 focus: outline-none' contentEditable placeholder='Share your thoughts...'></textarea>
              {media && (
                   <div className='relative'>
                   <div onClick={() => setMedia(null)} className='absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 rounded-full flex items-center justify-center top-1 left-[280px] cursor pointer'>
@@ -69,7 +71,7 @@ export default function Post() {
                  <Tooltip>
                     <TooltipTrigger>
                         <div onClick={() => filePickerRef.current.click()}>
-                            <FaImage size={24} className='text-black/50 cursor-pointer'/>
+                            <FaImage size={24} className='text-black/50 hover:text-purple-900 cursor-pointer'/>
                             <input ref={filePickerRef} onChange={addImageToPost} type='file' id='file' hidden />
                         </div>
                     </TooltipTrigger>
@@ -81,7 +83,7 @@ export default function Post() {
                 <TooltipProvider>
                  <Tooltip>
                     <TooltipTrigger>
-                        <IoLocationSharp size={24} className='text-black/50 cursor-pointer'/>
+                        <IoLocationSharp size={24} className='text-black/50 hover:text-purple-900 cursor-pointer'/>
                     </TooltipTrigger>
                     <TooltipContent className='bg-slate-800 text-white'>
                         <p>Location</p>
@@ -92,18 +94,18 @@ export default function Post() {
                  <Tooltip>
                     <TooltipTrigger>
                         <div onClick={() => setEmoji(!emoji)}>
-                          <MdEmojiEmotions size={24} className='text-black/50 cursor-pointer'/>
+                          <MdEmojiEmotions size={24} className='text-black/50 hover:text-purple-900 cursor-pointer'/>
                         </div>
                     </TooltipTrigger>
                     <TooltipContent className='bg-slate-800 text-white'>
-                        <p>Emojis</p>
+                        <p>Emoji</p>
                     </TooltipContent>
                  </Tooltip>
                 </TooltipProvider>
                 <TooltipProvider>
                  <Tooltip>
                     <TooltipTrigger>
-                        <FaCalendarAlt size={20} className='text-black/50 cursor-pointer'/>
+                        <FaCalendarAlt size={20} className='text-black/50 hover:text-purple-900 cursor-pointer'/>
                     </TooltipTrigger>
                     <TooltipContent className='bg-slate-800 text-white'>
                         <p>Calendar</p>
@@ -126,7 +128,7 @@ export default function Post() {
                   ) : (
                   ''
                   )}
-                  <button onClick={handlePostClick} className={`${!input.trim() && !media ? '' : 'hover:bg-purple-500' } rounded-md py-2 px-12 bg-purple-900 text-white disabled:opacity-50 disabled:cursor-not-allowed`} disabled={!input.trim() && !media}>Post</button>
+                  <button onClick={handlePostClick} className={`${!input.trim() && !media ? '' : 'hover:bg-purple-500' } rounded-md py-2 px-12 bg-purple-900 text-white disabled:opacity-50 disabled:cursor-auto`} disabled={!input.trim() && !media}>Post</button>
                 </div>
              </div>
         </div>
