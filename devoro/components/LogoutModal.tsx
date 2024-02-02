@@ -11,7 +11,7 @@ const [isOpen, setClose] = useModalStore((state) => [state.isOpen, state.setClos
   return (
     <>
     {isOpen ? <div>
-        <div className='w-[400px] h-40 rounded-xl border border-black/10 py-8 bg-yellow-100/5 shadow-2xl'>
+        <div className='w-[400px] h-40 rounded-xl border border-black/10 py-8 bg-yellow-100/5 shadow-2xl z-50'>
             <div className='flex flex-col justify-center gap-8 items-center font-semibold'>
                 <h2>Are you sure you want to logout?</h2>
                 <div className='flex items-center gap-7'>

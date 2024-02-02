@@ -22,6 +22,11 @@ import {
 } from "@/components/ui/tooltip"
 import useModalStore from '@/store/modalStore'
 import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
+
+interface CustomSession extends Session {
+  id?: string;
+}
 
 const sideLinks = [
   {
@@ -51,6 +56,7 @@ const sideLinks = [
     icon:<HiOutlineUser size={32}/>,
     iconActive: <HiUser size={32}/>,
     route: '/profile',
+
   },
 ]
 
@@ -72,9 +78,8 @@ export default function LeftSidebar() {
   if (activeLink === null) {
     setActiveLink('Home')
   } 
-  
-  const {data: session} = useSession();
 
+  const {data: session} = useSession() as { data: CustomSession | null };
   if(session) {
     return (
       <div>

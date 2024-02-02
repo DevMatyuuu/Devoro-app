@@ -9,3 +9,10 @@ interface user {
     email?: string,
     password?: string
 }
+
+interface post {
+    id?: string,
+    text?: string,
+    timestamp?: string,
+}
+

@@ -9,6 +9,13 @@ import {
   updateDoc,
 } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadString } from '@firebase/storage';
+import { getSession } from 'next-auth/react';
+import { Session } from 'next-auth';
+import { v4 as uuidv4 } from 'uuid';
+
+interface CustomSession extends Session {
+  id?: string;
+}
 
 interface PostState {
   input: string;
@@ -41,8 +48,14 @@ const usePostStore = create<PostState>()(
             if (loading) return;
   
             setLoading(true);
+
+            const session = await getSession() as unknown as {
+              id: any; data: CustomSession | null 
+};
   
             const docRef = await addDoc(collection(db, 'posts'), {
+              userId: session?.id,
+              id: uuidv4(), 
               text: input,
               timestamp: serverTimestamp(),
             });
